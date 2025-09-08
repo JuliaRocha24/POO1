@@ -1,0 +1,187 @@
+@echo off
+setlocal EnableDelayedExpansion
+title Assistente Virtual com Consequencias
+color 0A
+mode 80,30
+
+:: ASCII Art simples de boas-vindas
+cls
+echo.
+echo  ***************************************
+echo  *                                     *
+echo  *       ASSISTENTE VIRTUAL            *
+echo  *                                     *
+echo  ***************************************
+echo.
+echo              Bem vindo(a) ao jogo!
+echo.
+
+:: Sistema de pontuacao simples
+set "pontos=0"
+
+:: Solicitacao de senha
+set "senha=1234"
+set /p "entrada=Digite a senha de acesso: "
+
+if not "%entrada%"=="%senha%" (
+    echo.
+    echo Senha incorreta. Encerrando...
+    pause
+    exit /b
+)
+
+echo.
+echo Acesso concedido. Iniciando assistente...
+timeout /t 2 >nul
+cls
+
+:: Loop principal do menu
+:menu
+cls
+echo ----------------------------------------
+echo         ASSISTENTE VIRTUAL - MENU       
+echo ----------------------------------------
+echo.
+echo Seus pontos: !pontos!
+echo.
+echo Para onde voce quer ir?
+echo [esquerda] [direita] [cima] [baixo] [sair]
+echo.
+set /p "direcao=> "
+
+:: Normaliza a entrada para minusculas
+set "direcao=!direcao!"
+
+:: Verifica opcoes validas
+if /i "!direcao!"=="esquerda" goto esquerda
+if /i "!direcao!"=="direita"  goto direita
+if /i "!direcao!"=="cima"     goto cima
+if /i "!direcao!"=="baixo"    goto baixo
+if /i "!direcao!"=="sair"     goto fim
+
+echo.
+echo Opcao invalida. Tente novamente.
+pause
+goto menu
+
+:esquerda
+cls
+echo Voce virou para a ESQUERDA e encontrou uma floresta misteriosa...
+echo.
+echo Voce ve uma caverna escura e uma trilha iluminada.
+echo O que deseja fazer?
+echo [1] Entrar na caverna
+echo [2] Seguir pela trilha iluminada
+set /p "escolha=> "
+
+if "!escolha!"=="1" (
+    echo.
+    echo Voce entrou na caverna e encontrou um tesouro! +10 pontos
+    set /a pontos+=10
+    pause
+    goto menu
+) else if "!escolha!"=="2" (
+    echo.
+    echo A trilha leva voce a um rio turbulento. Voce escorrega e perde 5 pontos.
+    set /a pontos-=5
+    pause
+    goto menu
+) else (
+    echo.
+    echo Escolha invalida. Voltando ao menu...
+    pause
+    goto menu
+)
+
+:direita
+cls
+echo Voce virou para a DIREITA e viu uma estrada iluminada por tochas...
+echo.
+echo Voce encontra um velho que oferece ajuda.
+echo O que deseja fazer?
+echo [1] Aceitar ajuda
+echo [2] Recusar e continuar sozinho
+set /p "escolha=> "
+
+if "!escolha!"=="1" (
+    echo.
+    echo O velho te da um mapa secreto! +15 pontos
+    set /a pontos+=15
+    pause
+    goto menu
+) else if "!escolha!"=="2" (
+    echo.
+    echo Voce se perde na estrada e perde 10 pontos.
+    set /a pontos-=10
+    pause
+    goto menu
+) else (
+    echo.
+    echo Escolha invalida. Voltando ao menu...
+    pause
+    goto menu
+)
+
+:cima
+cls
+echo Voce olhou para CIMA e viu o ceu estrelado com uma aurora brilhante...
+echo.
+echo Voce pode tentar escalar uma arvore para ver melhor ou continuar andando.
+echo [1] Escalar a arvore
+echo [2] Continuar andando
+set /p "escolha=> "
+
+if "!escolha!"=="1" (
+    echo.
+    echo Voce conseguiu uma visao incrivel e descobre o caminho! +20 pontos
+    set /a pontos+=20
+    pause
+    goto menu
+) else if "!escolha!"=="2" (
+    echo.
+    echo Voce se cansa e perde tempo. -5 pontos
+    set /a pontos-=5
+    pause
+    goto menu
+) else (
+    echo.
+    echo Escolha invalida. Voltando ao menu...
+    pause
+    goto menu
+)
+
+:baixo
+cls
+echo Voce olhou para BAIXO e percebeu um alcapao aberto sob seus pes...
+echo.
+echo Voce pode descer pelo alcapao ou ignorar e seguir em frente.
+echo [1] Descer pelo alcapao
+echo [2] Ignorar e seguir em frente
+set /p "escolha=> "
+
+if "!escolha!"=="1" (
+    echo.
+    echo Voce encontrou um esconderijo secreto e ganha +25 pontos!
+    set /a pontos+=25
+    pause
+    goto menu
+) else if "!escolha!"=="2" (
+    echo.
+    echo Voce perde uma oportunidade importante. -10 pontos
+    set /a pontos-=10
+    pause
+    goto menu
+) else (
+    echo.
+    echo Escolha invalida. Voltando ao menu...
+    pause
+    goto menu
+)
+
+:fim
+cls
+echo Obrigado por jogar!
+echo Sua pontuacao final foi: !pontos!
+echo.
+pause
+exit /b
