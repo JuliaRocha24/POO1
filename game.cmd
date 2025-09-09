@@ -1,6 +1,6 @@
 @echo off
 setlocal EnableDelayedExpansion
-title Assistente Virtual com Consequencias
+title Numee Assistente
 color 0A
 mode 80,30
 
@@ -66,9 +66,9 @@ goto menu
 
 :esquerda
 cls
-echo Voce virou para a ESQUERDA e encontrou uma floresta misteriosa...
+echo Você virou para a ESQUERDA e encontrou uma floresta misteriosa...
 echo.
-echo Voce ve uma caverna escura e uma trilha iluminada.
+echo Você vê uma caverna escura e uma trilha iluminada.
 echo O que deseja fazer?
 echo [1] Entrar na caverna
 echo [2] Seguir pela trilha iluminada
@@ -185,3 +185,4 @@ echo Sua pontuacao final foi: !pontos!
 echo.
 pause
 exit /b
+
